@@ -13,3 +13,16 @@ The playbook might look as follows:
       var: ansible_facts
 ...
 ```
+---
+- hosts: all
+  tasks:
+          - name: gather package facts
+            when: inventory_hostname in groups['database']
+            ansible.builtin.package_facts:
+                    manager: auto
+
+          - name: Print the package facts
+            ansible.builtin.debug:
+                    var: ansible_facts.packages
+...
+Ref:https://docs.ansible.com/ansible/latest/collections/ansible/builtin/package_facts_module.html
